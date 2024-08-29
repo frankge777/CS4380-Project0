@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <sstream>
-
+11111111
 using namespace std;
 string convTen2Two(unsigned int baseTenValue){
     string basetwo;
