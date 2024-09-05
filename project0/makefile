@@ -1,8 +1,14 @@
-Application: function.o
-	g++ function.o main.cpp -o main
+Application: myUFls.o main.o
+	g++ myUFls.o main.o -o main
 
-function.o: myUFls.h myUFls.cpp
-	g++ -c myUFls.cpp 
+main.o: main.cpp myUFls.h
+	g++ -c main.cpp -o main.o
+
+myUFls.o: myUFls.h myUFls.cpp
+	g++ myUFls.cpp myUFls.h -c
+
+
+
 
 clean:
-	rm main
+	rm -f *.o main

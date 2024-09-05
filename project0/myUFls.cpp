@@ -10,7 +10,7 @@ string convTen2Two(unsigned int baseTenValue){
     }
 
     while(baseTenValue > 0){
-        basetwo.push_back(baseTenValue % 2);
+        basetwo.push_back((baseTenValue % 2) + '0');
         baseTenValue /= 2;
     }
     reverse(basetwo.begin(), basetwo.end()); 

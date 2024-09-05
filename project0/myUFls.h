@@ -6,10 +6,7 @@
 #include <algorithm>
 using namespace std;
 
-string convTen2Two(unsigned int baseTenValue){
-    return "";
-
-}
+string convTen2Two(unsigned int baseTenValue);
 
 
 
