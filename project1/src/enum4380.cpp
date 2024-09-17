@@ -47,3 +47,25 @@ bool decode() {
     return false;
 }
 
+bool execute() {
+    uint32_t op = cntrl_regs[OPERATION];
+    switch (op) {
+        case 1: // JMP
+            reg_file[PC] = cntrl_regs[IMMEDIATE];
+            break;
+        case 7: // MOV
+            reg_file[cntrl_regs[OPERAND_1]] = data_regs[REG_VAL_1];
+            break;
+        case 18: // ADD
+            reg_file[cntrl_regs[OPERAND_1]] = data_regs[REG_VAL_1] + data_regs[REG_VAL_2];
+            break;
+        case 31: // TRP
+            if (cntrl_regs[IMMEDIATE] == 0) {
+                return false; // TRP 0: Exit
+            }
+            break;
+        default:
+            return false;
+    }
+    return true;
+}
