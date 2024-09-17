@@ -21,4 +21,10 @@ enum DataRegNames {
     REG_VAL_1, REG_VAL_2
 };
 
+bool fetch();
+bool decode();
+bool execute();
+bool init_mem(unsigned int size);
+
+
 #endif
