@@ -49,21 +49,132 @@ bool decode() {
 
 bool execute() {
     uint32_t op = cntrl_regs[OPERATION];
+    uint32_t rd, rs, rs1, rs2, imm, addr;
+
     switch (op) {
-        case 1: // JMP
-            reg_file[PC] = cntrl_regs[IMMEDIATE];
-            break;
         case 7: // MOV
-            reg_file[cntrl_regs[OPERAND_1]] = data_regs[REG_VAL_1];
+            rd = cntrl_regs[OPERAND_1];
+            rs = cntrl_regs[OPERAND_2];
+            reg_file[rd] = reg_file[rs];
             break;
+
+        case 8: // MOVI
+            rd = cntrl_regs[OPERAND_1];
+            imm = cntrl_regs[IMMEDIATE];
+            reg_file[rd] = imm;
+            break;
+
+        case 9: // LDA
+            rd = cntrl_regs[OPERAND_1];
+            addr = cntrl_regs[IMMEDIATE];
+            reg_file[rd] = addr;
+            break;
+
+        case 10: // STR
+            rs = cntrl_regs[OPERAND_1];
+            addr = cntrl_regs[IMMEDIATE];
+            *reinterpret_cast<uint32_t *>(&prog_mem[addr]) = reg_file[rs];
+            break;
+
+        case 11: // LDR
+            rd = cntrl_regs[OPERAND_1];
+            addr = cntrl_regs[IMMEDIATE];
+            reg_file[rd] = *reinterpret_cast<uint32_t *>(&prog_mem[addr]);
+            break;
+
+        case 12: // STB
+            rs = cntrl_regs[OPERAND_1];
+            addr = cntrl_regs[IMMEDIATE];
+            prog_mem[addr] = static_cast<unsigned char>(reg_file[rs] & 0xFF);
+            break;
+
+        case 13: // LDB
+            rd = cntrl_regs[OPERAND_1];
+            addr = cntrl_regs[IMMEDIATE];
+            reg_file[rd] = static_cast<uint32_t>(prog_mem[addr]);
+            break;
+
         case 18: // ADD
-            reg_file[cntrl_regs[OPERAND_1]] = data_regs[REG_VAL_1] + data_regs[REG_VAL_2];
+            rd = cntrl_regs[OPERAND_1];
+            rs1 = cntrl_regs[OPERAND_2];
+            rs2 = cntrl_regs[OPERAND_3];
+            reg_file[rd] = reg_file[rs1] + reg_file[rs2];
             break;
+
+        case 19: // ADDI
+            rd = cntrl_regs[OPERAND_1];
+            rs1 = cntrl_regs[OPERAND_2];
+            imm = cntrl_regs[IMMEDIATE];
+            reg_file[rd] = reg_file[rs1] + imm;
+            break;
+
+        case 20: // SUB
+            rd = cntrl_regs[OPERAND_1];
+            rs1 = cntrl_regs[OPERAND_2];
+            rs2 = cntrl_regs[OPERAND_3];
+            reg_file[rd] = reg_file[rs1] - reg_file[rs2];
+            break;
+
+        case 21: // SUBI
+            rd = cntrl_regs[OPERAND_1];
+            rs1 = cntrl_regs[OPERAND_2];
+            imm = cntrl_regs[IMMEDIATE];
+            reg_file[rd] = reg_file[rs1] - imm;
+            break;
+
+        case 22: // MUL
+            rd = cntrl_regs[OPERAND_1];
+            rs1 = cntrl_regs[OPERAND_2];
+            rs2 = cntrl_regs[OPERAND_3];
+            reg_file[rd] = reg_file[rs1] * reg_file[rs2];
+            break;
+
+        case 23: // MULI
+            rd = cntrl_regs[OPERAND_1];
+            rs1 = cntrl_regs[OPERAND_2];
+            imm = cntrl_regs[IMMEDIATE];
+            reg_file[rd] = reg_file[rs1] * imm;
+            break;
+
+        case 24: // DIV
+            rd = cntrl_regs[OPERAND_1];
+            rs1 = cntrl_regs[OPERAND_2];
+            rs2 = cntrl_regs[OPERAND_3];
+            if (reg_file[rs2] == 0) {
+                std::cerr << "Division by zero error\n";
+                return false;
+            }
+            reg_file[rd] = reg_file[rs1] / reg_file[rs2];
+            break;
+
+        case 25: // SDIV
+            rd = cntrl_regs[OPERAND_1];
+            rs1 = cntrl_regs[OPERAND_2];
+            rs2 = cntrl_regs[OPERAND_3];
+            if (reg_file[rs2] == 0) {
+                std::cerr << "Division by zero error\n";
+                return false;
+            }
+            reg_file[rd] = static_cast<int32_t>(reg_file[rs1]) / static_cast<int32_t>(reg_file[rs2]);
+            break;
+
+        case 26: // DIVI
+            rd = cntrl_regs[OPERAND_1];
+            rs1 = cntrl_regs[OPERAND_2];
+            imm = cntrl_regs[IMMEDIATE];
+            if (imm == 0) {
+                std::cerr << "Division by zero error\n";
+                return false;
+            }
+            reg_file[rd] = static_cast<int32_t>(reg_file[rs1]) / static_cast<int32_t>(imm);
+            break;
+
         case 31: // TRP
             if (cntrl_regs[IMMEDIATE] == 0) {
                 return false; // TRP 0: Exit
             }
             break;
+
         default:
             return false;
     }
