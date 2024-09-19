@@ -1,88 +1,35 @@
-Sure, here is a README file for your project:
+# Base 10 to Base 2 Conversion Program
 
----
-
-# MyProject
-
-This project converts a base-10 integer to its binary representation and includes unit tests using Google Test.
-
-
-## Files
-
-- **CMakeLists.txt**: Configures the project, including fetching and setting up Google Test.
-- **main.cpp**: Main program that takes user input, validates it, and prints the binary representation.
-- **myUFls.h**: Header file that declares the `convTen2Two` function.
-- **myUFls.cpp**: Source file that defines the `convTen2Two` function.
-- **mytest.cpp**: Contains the unit tests for the `convTen2Two` function using Google Test.
+## Description
+This program converts a non-negative base 10 integer between 0 and 4294967295 to its corresponding base 2 value. The program prompts the user for input, validates the input, performs the conversion, and prints the result.
 
 ## Requirements
+- The program is written in C++.
+- It performs base 10 to base 2 conversion for integers between 0 and 4294967295.
+- It prompts the user for a non-negative base 10 integer.
+- It validates the input and ensures it is properly formatted.
+- It prints the corresponding base 2 value for valid input.
+- The program exits with status 0 for valid input and status 1 for invalid input.
+- The program consists of a single file: `main.cpp`.
 
-- CMake 3.10 or higher
-- C++14 compatible compiler
+## Validation
+### Unit Tests
+- Conversion function `convTen2Two` was tested with various inputs to ensure correct output:
+  - Input: 0, Output: "0"
+  - Input: 15, Output: "1111"
+  - Input: 1000, Output: "1111101000"
+  - Input: 4294967295, Output: "11111111111111111111111111111111"
 
-## Building and Running
-
-1. Clone the repository:
-    ```sh
-    git clone <repository_url>
-    cd MyProject
-    ```
-
-2. Create a build directory and navigate into it:
-    ```sh
-    mkdir build
-    cd build
-    ```
-
-3. Generate the build system using CMake:
-    ```sh
-    cmake ..
-    ```
-
-4. Build the project:
-    ```sh
-    cmake --build .
-    ```
-
-5. Run the main program:
-    ```sh
-    ./main
-    ```
-
-## Running Tests
-
-1. Ensure you have built the tests as part of the build process:
-    ```sh
-    cmake --build .
-    ```
-
-2. Run the tests:
-    ```sh
-    ctest
-    ```
-
-## Function Description
-
-### convTen2Two
-
-```cpp
-string convTen2Two(unsigned int baseTenValue);
-```
-
-- **Input**: A non-negative base-10 integer.
-- **Output**: A string representing the binary (base-2) equivalent of the input integer.
-- **Example**:
-  ```cpp
-  convTen2Two(15); // Returns "1111"
-  convTen2Two(1000); // Returns "1111101000"
-  ```
-
-## Example Usage
-
-```sh
-./main
-Enter a non-negative base 10 integer between 0 and 4294967295 (with no commas) and hit Enter/Return:
-15
-1111
-```
+### Manual Testing
+- Tested with various valid inputs to ensure correct conversion:
+  - Input: 0, Output: "0"
+  - Input: 1, Output: "1"
+  - Input: 2, Output: "10"
+  - Input: 255, Output: "11111111"
+  - Input: 4294967295, Output: "11111111111111111111111111111111"
+- Tested with invalid inputs to ensure proper error handling:
+  - Input: "abc", Output: "Invalid input!"
+  - Input: "4294967296", Output: "Invalid input!"
+  - Input: "-1", Output: "Invalid input!"
+  - Input: "123,456", Output: "Invalid input!"
 
