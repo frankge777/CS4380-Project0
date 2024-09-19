@@ -1,7 +1,3 @@
-Sure, here is a README file for your project:
-
----
-
 # MyProject
 
 This project converts a base-10 integer to its binary representation and includes unit tests using Google Test.
