@@ -1,84 +1,66 @@
-# MyProject
+# README for `myUFls` Project
 
-This project converts a base-10 integer to its binary representation and includes unit tests using Google Test.
+## Project Overview
 
+This project implements a simple C++ program that converts a base-10 (decimal) integer to a base-2 (binary) string representation. The user is prompted to input a non-negative base-10 integer between `0` and `4294967295`, and the program outputs the corresponding binary representation.
 
-## Files
+### Components
 
-- **CMakeLists.txt**: Configures the project, including fetching and setting up Google Test.
-- **main.cpp**: Main program that takes user input, validates it, and prints the binary representation.
-- **myUFls.h**: Header file that declares the `convTen2Two` function.
-- **myUFls.cpp**: Source file that defines the `convTen2Two` function.
-- **mytest.cpp**: Contains the unit tests for the `convTen2Two` function using Google Test.
+1. **`myUFls.h`**: This header file contains the declaration of the function `convTen2Two` which converts a base-10 integer to its binary (base-2) string representation.
+2. **`myUFls.cpp`**: This source file defines the function `convTen2Two`.
+3. **`main.cpp`**: This is the main program that interacts with the user, accepts input, and calls the `convTen2Two` function to display the binary output.
+4. **Makefile**: Automates the compilation of the project, creating an executable called `main`. It also includes a clean command to remove compiled object files.
 
-## Requirements
+## How to Build
 
-- CMake 3.10 or higher
-- C++14 compatible compiler
+### Requirements
 
-## Building and Running
+- A C++ compiler (e.g., `g++`).
+- A UNIX-like environment or terminal (for `Makefile`).
 
-1. Clone the repository:
-    ```sh
-    git clone <repository_url>
-    cd MyProject
-    ```
+### Compilation
 
-2. Create a build directory and navigate into it:
-    ```sh
-    mkdir build
-    cd build
-    ```
+To compile the project, run the following command in the terminal:
 
-3. Generate the build system using CMake:
-    ```sh
-    cmake ..
-    ```
+```bash
+make
+```
 
-4. Build the project:
-    ```sh
-    cmake --build .
-    ```
+This will compile the source files and create an executable named `main`.
 
-5. Run the main program:
-    ```sh
-    ./main
-    ```
+### Running the Program
 
-## Running Tests
+After compiling, run the program with the following command:
 
-1. Ensure you have built the tests as part of the build process:
-    ```sh
-    cmake --build .
-    ```
+```bash
+./main
+```
 
-2. Run the tests:
-    ```sh
-    ctest
-    ```
+The program will prompt you to input a non-negative base-10 integer between `0` and `4294967295` (without commas). The output will be the binary representation of the input integer.
+
+Example:
+
+```
+Enter a non-negaFve base 10 integer between 0 and 4294967295 (with no commas) and hit Enter/Return:
+10
+1010
+```
+
+### Cleaning the Build
+
+To remove the compiled object files and the executable, use the `clean` target:
+
+```bash
+make clean
+```
+
+This will delete all object files (`*.o`) and the `main` executable.
 
 ## Function Description
 
-### convTen2Two
+- **`convTen2Two`**: 
+  - **Input**: A non-negative unsigned integer (`unsigned int`).
+  - **Output**: A string representing the binary equivalent of the input integer.
+  - **Description**: This function converts the given base-10 integer into a binary string by repeatedly dividing the number by 2 and recording the remainder. The binary string is then reversed to give the correct binary representation.
 
-```cpp
-string convTen2Two(unsigned int baseTenValue);
-```
-
-- **Input**: A non-negative base-10 integer.
-- **Output**: A string representing the binary (base-2) equivalent of the input integer.
-- **Example**:
-  ```cpp
-  convTen2Two(15); // Returns "1111"
-  convTen2Two(1000); // Returns "1111101000"
-  ```
-
-## Example Usage
-
-```sh
-./main
-Enter a non-negative base 10 integer between 0 and 4294967295 (with no commas) and hit Enter/Return:
-15
-1111
-```
 
