@@ -1,5 +1,3 @@
-# README for `myUFls` Project
-
 ## Project Overview
 
 This project implements a simple C++ program that converts a base-10 (decimal) integer to a base-2 (binary) string representation. The user is prompted to input a non-negative base-10 integer between `0` and `4294967295`, and the program outputs the corresponding binary representation.
